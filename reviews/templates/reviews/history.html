@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}History{% endblock %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/history.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="history-hero">
+    <div class="hero-top">
+        <h1>Your Review History</h1>
+        <p>Explore the journey of your product experiences.</p>
+    </div>
+    <button id="themeToggle" class="theme-toggle-btn">🌗 Toggle Theme</button>
+</section>
+
+<div class="history-container">
+    {% if reviews %}
+    <div class="review-list">
+        {% for review in reviews %}
+        <div class="review-card reveal">
+            <div class="image-wrap">
+                <img src="{{ review.product.image.url }}" alt="{{ review.product.product_name }}" class="review-image">
+            </div>
+            <div class="review-details">
+                <h2>{{ review.product.product_name }}</h2>
+                <p><strong>Review:</strong> {{ review.Review }}</p>
+                <p><strong>Date:</strong> {{ review.created_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-reviews reveal" style="animation-delay: 0.4s;">No reviews yet – go make your mark!</p>
+    {% endif %}
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 One Check. All rights reserved.</p>
+</footer>
+
+<script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+{% endblock %}

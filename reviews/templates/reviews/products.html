@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+{% load static %}
+<img src="{% static 'images/products-bg.jpg' %}" alt="Products Background">
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="products-hero parallax">
+    <div class="overlay"></div>
+    <div class="hero-text reveal">
+        <h1>Explore Our Curated Products</h1>
+        <p>Crafted with precision. Loved by users. Trusted by you.</p>
+    </div>
+</section>
+
+<div class="search-filter-container reveal">
+    <input type="text" id="productSearch" placeholder="Search products...">
+    <div class="filter-buttons">
+        <button onclick="filterProducts('all')">All</button>
+        <button onclick="filterProducts('smartphones')">Smartphones</button>
+        <button onclick="filterProducts('laptops')">Laptops</button>
+        <button onclick="filterProducts('audio')">Audio Devices</button>
+        <button onclick="filterProducts('wearables')">Wearables</button>
+        <button onclick="filterProducts('accessories')">Accessories</button>
+    </div>
+</div>
+
+<div class="product-grid" id="productGrid">
+    {% for product in Products %}
+    <div class="product-card reveal" data-category="{{ product.category|lower }}">
+        <a href="{% url 'About Product' slug=product.slug %}">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+            <div class="product-details">
+                <h2>{{ product.product_name }}</h2>
+                <p>{{ product.over_view|truncatewords:20 }}</p>
+                <span class="read-more">Learn More →</span>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<section class="cta-final reveal" style="animation-delay: 1s;">
+    <h2>Discover Products Built for You</h2>
+    <p>Join our growing community of informed buyers and reviewers.</p>
+</section>
+
+<script>
+    const searchInput = document.getElementById('productSearch');
+    const productCards = document.querySelectorAll('.product-card');
+
+    searchInput.addEventListener('keyup', function () {
+        const query = this.value.toLowerCase();
+        productCards.forEach(card => {
+            const title = card.querySelector('h2').textContent.toLowerCase();
+            card.style.display = title.includes(query) ? 'block' : 'none';
+        });
+    });
+
+    function filterProducts(category) {
+        const cards = document.querySelectorAll('.product-card');
+
+        cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Simple reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+</script>
+{% endblock %}

@@ -1,0 +1,172 @@
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.parallax {
+    background-image: url("/static/images/products-bg.jpg");
+    height: 60vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.parallax .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+}
+
+.parallax .hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+}
+
+.search-filter-container {
+    text-align: center;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.search-filter-container input {
+    padding: 12px 20px;
+    width: 60%;
+    max-width: 500px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.filter-buttons {
+    margin-top: 10px;
+}
+
+.filter-buttons button {
+    background: black;
+    color: white;
+    padding: 10px 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filter-buttons button:hover {
+    background: #333;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 40px 60px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.product-details {
+    padding: 20px;
+    text-align: left;
+}
+
+.product-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.product-details p {
+    font-size: 1rem;
+    color: #333;
+}
+
+.read-more {
+    font-weight: 500;
+    color: black;
+    transition: color 0.3s;
+}
+
+.read-more:hover {
+    color: #555;
+}
+
+.cta-final {
+    text-align: center;
+    background: black;
+    color: white;
+    padding: 60px 20px;
+    margin-top: 60px;
+}
+
+.cta-final h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.cta-final p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-final .cta-button {
+    background: white;
+    color: black;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.cta-final .cta-button:hover {
+    background: #ddd;
+}
+
+/* Reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

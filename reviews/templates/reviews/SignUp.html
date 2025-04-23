@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/SignUp.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="signup-section">
+  <div class="signup-box">
+    <h2 class="signup-heading">Create Account</h2>
+    <p class="signup-subheading">Join the revolution. Start sharing & reviewing.</p>
+
+    <form method="POST" action="/SignUp">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">Email</label>
+        {{ form.email }}
+        {% for error in form.email.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }}
+        {% for error in form.password1.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+        {{ form.password2 }}
+        {% for error in form.password2.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="signup-btn">Sign Up</button>
+      <p class="alt-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </form>
+    
+    {% if messages %}
+    {% for message in messages %}
+      <div class="toast show-toast">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  
+  </div>
+</section>
+
+<!-- JS TOAST -->
+<script>
+  const form = document.querySelector("form");
+  const toastSuccess = document.getElementById("toast-success");
+  const toastError = document.getElementById("toast-error");
+
+  form.addEventListener("submit", (e) => {
+    // This is a dummy frontend trigger – ideally this should be triggered via server message
+    setTimeout(() => {
+      const hasErrors = document.querySelectorAll(".error-message").length > 0;
+      if (hasErrors) {
+        toastError.style.display = "block";
+        setTimeout(() => toastError.style.display = "none", 3000);
+      } else {
+        toastSuccess.style.display = "block";
+        setTimeout(() => toastSuccess.style.display = "none", 3000);
+      }
+    }, 300);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/Login.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="login-section">
+  <div class="login-box">
+    <h2 class="login-heading">Welcome Back 👋</h2>
+    <p class="login-subheading">Log in to continue exploring and reviewing.</p>
+
+    {% if next %}
+      <form action="{% url 'login' %}?next={{ next }}" method="POST">
+    {% else %}
+      <form method="POST" action="{% url 'login' %}">
+    {% endif %}
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="error-message">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+        {% for error in form.password.errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+      <p class="alt-link">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+    </form>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="toast show-toast">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector("form");
+  const toastSuccess = document.getElementById("toast-success");
+  const toastError = document.getElementById("toast-error");
+
+  form.addEventListener("submit", (e) => {
+    setTimeout(() => {
+      const hasErrors = document.querySelectorAll(".error-message").length > 0;
+      if (hasErrors) {
+        toastError.style.display = "block";
+        setTimeout(() => toastError.style.display = "none", 3000);
+      } else {
+        toastSuccess.style.display = "block";
+        setTimeout(() => toastSuccess.style.display = "none", 3000);
+      }
+    }, 300);
+  });
+</script>
+{% endblock %}

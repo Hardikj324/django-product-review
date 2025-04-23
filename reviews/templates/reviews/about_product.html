@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+About Product
+{% endblock %}
+
+{% load static %}
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/about_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="product-wrapper">
+    <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.slug }}" class="product-image">
+        <div class="product-info">
+            <h1>{{ product.product_name }}</h1>
+            <p>{{ product.about }}</p>
+            <a href="{{ product.purchase_link }}" target="_blank" class="purchase-btn">Buy Now</a>
+        </div>
+    </div>
+
+    <div class="review-section">
+        <h2>Write a Review</h2>
+        <form action="/Products/{{ product.slug }}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">
+                Submit Review
+            </button>
+        </form>
+
+        <h3>What others are saying:</h3>
+        {% for review in Reviews %}
+        <div class="review-box">
+            <img src="{% static 'reviews/default_user.png' %}" alt="user" class="review-avatar">
+            <div class="review-content">
+                <h4>{{ review.user.username }}</h4>
+                <p class="review-time">{{ review.created_at }}</p>
+                <p>{{ review.Review }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

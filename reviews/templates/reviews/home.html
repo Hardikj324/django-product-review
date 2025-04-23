@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="parallax-wrapper">
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-heading">Share your experience.
+                <span>One Check, one decision.</span>
+            </h1>
+            <p class="hero-tagline">
+                One Check helps you discover the best products<br>
+                through authentic reviews from real users.<br>
+                Share your experiences and make informed decisions.
+            </p>
+            <a href="{% url 'Products' %}" class="cta-button">Explore Products</a>
+        </div>
+    </header>
+</div>
+
+<section class="features">
+    <h2 class="section-heading">Why Choose One Check?</h2>
+    <div class="feature-grid">
+        <div class="feature-card reveal" style="animation-delay: 0.2s;">
+            <img src="{% static 'images/feedback.svg' %}" alt="Feedback Icon">
+            <h3>Instant Feedback</h3>
+            <p>Collect real-time reviews from your users and turn insights into improvements.</p>
+        </div>
+        <div class="feature-card reveal" style="animation-delay: 0.4s;">
+            <img src="{% static 'images/data.svg' %}" alt="Analytics Icon">
+            <h3>Data-Driven Insights</h3>
+            <p>Track sentiment, usage trends, and preferences to grow smarter.</p>
+        </div>
+        <div class="feature-card reveal" style="animation-delay: 0.6s;">
+            <img src="{% static 'images/support.svg' %}" alt="Support Icon">
+            <h3>Easy Integration</h3>
+            <p>Integrate seamlessly with your product catalog and user base.</p>
+        </div>
+    </div>
+</section>
+
+<section class="testimonial">
+    <div class="testimonial-content reveal" style="animation-delay: 0.8s;">
+        <blockquote>
+            "One Check helped us transform our customer feedback into product gold!"
+        </blockquote>
+        <span>- A Satisfied User</span>
+    </div>
+</section>
+
+<section class="cta-final reveal" style="animation-delay: 1s;">
+    {% if not user.is_authenticated %}
+        <h2>Ready to get started?</h2>
+        <p>Join thousands of happy users improving their product experience with One Check.</p>
+        <a href="{% url 'signup' %}" class="cta-button">Sign Up Now</a>
+    {% else %}
+        <h3>💬 One Review. A Thousand Decisions Made Easier.</h3>
+            <p>Real users. Real opinions. Real impact.</p>
+    {% endif %}
+</section>
+
+<footer class="footer">
+    <p>&copy; 2025 One Check. All rights reserved.</p>
+</footer>
+{% endblock %}

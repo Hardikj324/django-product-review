@@ -1,0 +1,4 @@
+Copyright (c) 2025 Hardik JAIN
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software for personal, non-commercial use only. Redistribution or
+commercial use is prohibited without explicit permission from the author.

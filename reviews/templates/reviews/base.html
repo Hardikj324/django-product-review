@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %} 
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'reviews/base.css' %}">
+    {% block css_files %}{% endblock %}
+</head>
+<body> 
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="{% url 'Home' %}">
+                <img src="{% static 'images/one check logo.png' %}" alt="Logo" class="logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="{% url 'Home' %}">Home</a></li>
+                <li><a href="{% url 'Products' %}">Products</a></li>
+                {% if not user.is_authenticated %}
+                    {% if request.resolver_match.url_name == 'login' %}
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                {% endif %}
+                <li><a href="{% url 'history' %}">History</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
