@@ -28,7 +28,7 @@ To manage database:
 - Access the admin panel: Append /admin to your local server URL (e.g., http://127.0.0.1:8000/admin)
 
 To Install all the dependencies:
-- 'Pip install -r requirements.txt'
+- `Pip install -r requirements.txt`
 
 
 
