@@ -149,4 +149,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = '/Login'            # Where to go after when login_required implies
 
-Open_Api = "gbvjghbdfnasfdgs5f1dg55g5fd4g"
+Open_Api = "gbvjghbdfnasfdgs5f1dg55g5fd4g2132"
